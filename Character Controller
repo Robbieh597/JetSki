@@ -1,0 +1,55 @@
+using UnityEngine;
+using System.Collections;
+
+public class CharacterControls : MonoBehaviour 
+{
+	float speed = 0;
+	const float MAX = 1;
+	const float MIN = -1;
+
+	float rotationX = 1f;
+	float rotationZ = 0f;
+
+	// Use this for initialization
+	void Start () 
+	{
+	
+	}
+
+	// Update is called once per frame
+	void Update () 
+	{
+		if(Input.GetKey(KeyCode.W))
+			speed += 0.01f;
+		
+		if (Input.GetKey(KeyCode.S))
+			speed -= 0.1f;
+
+		if (!Input.GetKey (KeyCode.W))
+			speed -= 0.005f;
+		
+		if (Input.GetKey (KeyCode.A)) 
+		{
+			rotationX -= 0.2f;	
+			rotationZ -= 0.2f;
+		}
+		if (Input.GetKey (KeyCode.D)) 
+		{
+			rotationX += 0.2f;	
+			rotationZ += 0.2f;
+		}
+		if (speed > MAX)
+			speed = MAX;
+		
+		if (speed < 0)
+			speed = 0;
+		
+		if (rotationZ > MAX)
+			rotationZ = MIN;
+		
+		if (rotationZ < MIN)
+			rotationZ = MAX;
+
+		transform.Translate(rotationX * speed, 0, rotationZ * speed);
+	}
+}
