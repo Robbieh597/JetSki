@@ -11,6 +11,10 @@ public class Rocket : PowerUp
 	public GameObject target = null;
 	Vector3[] directionPoints = new Vector3[18];
 
+	public Transform explosionEffect;
+
+	public int fuel = 300;
+
 	// Use this for initialization
 	void Start ()
 	{ 
@@ -37,10 +41,21 @@ public class Rocket : PowerUp
 		//find target for first time or follow target
 		if (target == null) 
 		{
-			FindTarget();
+			FindTarget ();
+		} 
+		else 
+		{
+			if (fuel > 0) 
+			{
+				fuel--;
+				follow ();
+			}
+			else
+			{
+				Instantiate(explosionEffect,transform.position,transform.rotation);
+				Destroy(this.gameObject);
+			}
 		}
-		else
-			follow ();
 	
 	}
 
@@ -49,6 +64,7 @@ public class Rocket : PowerUp
 		//destroys rocket and player when they collide
 		if (col.gameObject == target) 
 		{
+			Instantiate(explosionEffect,transform.position,transform.rotation);
 			Destroy (this.gameObject);
 			Destroy (target);
 		}
