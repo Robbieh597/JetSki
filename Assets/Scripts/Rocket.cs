@@ -57,6 +57,7 @@ public class Rocket : PowerUp
 			{
 				Instantiate(explosionEffect,transform.position,transform.rotation);
 				Destroy(this.gameObject);
+				//creates explosion effect
 				AddExplosionForce ();
 			}
 		}
@@ -71,7 +72,7 @@ public class Rocket : PowerUp
 			Instantiate(explosionEffect,transform.position,transform.rotation);
 			Destroy (this.gameObject);
 			Destroy (target);
-
+			//creates explosion effect
 			AddExplosionForce ();
 		}
 
@@ -105,15 +106,17 @@ public class Rocket : PowerUp
 
 	void AddExplosionForce ()
 	{
-		Ray ray = new Ray (target.transform.position, (transform.position - target.transform.position));
-		RaycastHit hit;
-		if (Physics.Raycast (ray, out hit, 100)) {
-			Collider[] colliders = Physics.OverlapSphere (hit.point, radius);
-			foreach (Collider c in colliders) {
-				if (c.rigidbody == null)
-					continue;
-				c.rigidbody.AddExplosionForce (force, hit.point, radius, 0, ForceMode.Impulse);
-			}
+		//find all colliders within a radius
+		Collider[] colliders = Physics.OverlapSphere (transform.position, radius);
+
+		foreach (Collider c in colliders) 
+		{
+			//check if they have a rigidbody,if not go to next collider
+			if (c.rigidbody == null)
+				continue;
+			//if has ridgidbody apply force
+			c.rigidbody.AddExplosionForce (force, transform.position, radius, 0, ForceMode.Impulse);
 		}
+		//}
 	}
 }

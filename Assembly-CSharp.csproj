@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\MassExplosionScript.cs" />
      <Compile Include="Assets\Scripts\Opponent.cs" />
      <Compile Include="Assets\Scripts\Pier.cs" />
+     <Compile Include="Assets\Scripts\Play.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PokeScript.cs" />
      <Compile Include="Assets\Scripts\PowerUp.cs" />
@@ -59,6 +60,7 @@
      <Compile Include="Assets\Scripts\Rocket.cs" />
      <Compile Include="Assets\Scripts\SandBank.cs" />
      <Compile Include="Assets\Scripts\SimpleRocket.cs" />
+     <Compile Include="Assets\Scripts\SpeedBoost.cs" />
      <Compile Include="Assets\Scripts\Track.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
   </ItemGroup>
