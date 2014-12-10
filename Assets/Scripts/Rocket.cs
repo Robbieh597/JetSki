@@ -15,6 +15,9 @@ public class Rocket : PowerUp
 
 	public int fuel = 300;
 
+	public float force;
+	public float radius;
+
 	// Use this for initialization
 	void Start ()
 	{ 
@@ -54,6 +57,7 @@ public class Rocket : PowerUp
 			{
 				Instantiate(explosionEffect,transform.position,transform.rotation);
 				Destroy(this.gameObject);
+				AddExplosionForce ();
 			}
 		}
 	
@@ -67,7 +71,10 @@ public class Rocket : PowerUp
 			Instantiate(explosionEffect,transform.position,transform.rotation);
 			Destroy (this.gameObject);
 			Destroy (target);
+
+			AddExplosionForce ();
 		}
+
 	}
 
 	void follow ()
@@ -96,4 +103,17 @@ public class Rocket : PowerUp
 		}
 		}
 
+	void AddExplosionForce ()
+	{
+		Ray ray = new Ray (target.transform.position, (transform.position - target.transform.position));
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit, 100)) {
+			Collider[] colliders = Physics.OverlapSphere (hit.point, radius);
+			foreach (Collider c in colliders) {
+				if (c.rigidbody == null)
+					continue;
+				c.rigidbody.AddExplosionForce (force, hit.point, radius, 0, ForceMode.Impulse);
+			}
+		}
+	}
 }
