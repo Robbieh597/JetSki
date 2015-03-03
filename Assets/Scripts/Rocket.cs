@@ -67,11 +67,11 @@ public class Rocket : PowerUp
 	void OnCollisionEnter(Collision col)
 	{
 		//destroys rocket and player when they collide
-		if (col.gameObject == target) 
+		if (col.gameObject == target || col.gameObject.tag == "Racer") 
 		{
 			Instantiate(explosionEffect,transform.position,transform.rotation);
 			Destroy (this.gameObject);
-			Destroy (target);
+			Destroy (col.gameObject);
 			//creates explosion effect
 			AddExplosionForce ();
 		}
